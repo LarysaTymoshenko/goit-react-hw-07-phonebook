@@ -1,16 +1,14 @@
  import PropTypes from "prop-types";
 import s from "./ContactItem.module.css";
 
-function ContactItem({ id, name, number,onDeleteContact }) {
-   
+function ContactItem({ name, number,onDeleteContact }) {
   return (
-    <li key={id} >
+    <li>
       <span className={s.itemText}>{name}</span>
       <span className={s.itemText}>{number}</span>
       <button
         type="button"
         className={s.button}
-         data-id={id}
         onClick={onDeleteContact}
       >
         Delete
