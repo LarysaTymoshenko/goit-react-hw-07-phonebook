@@ -1,41 +1,52 @@
-// import { combineReducers } from 'redux';
-import { createReducer } from '@reduxjs/toolkit';
-import actions from './contact-actions';
-import { current } from 'immer';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const contacts = { items: [], filter: '' };
+export const contactsReducer = createApi({
+  reducerPath: 'contacts',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://61ee8ed5d593d20017dbaf3c.mockapi.io/contacts/contacts',
+  }),
+  tagTypes: ['contacts'],
+  endpoints: builder => ({
+    getContacts: builder.query({
+      query: () => '/',
+      providesTags: result =>
+        result
+          ? [...result.map(el => ({ type: 'contacts', id: el.id })), 'contacts']
+          : ['contacts'],
+    }),
+    addContact: builder.mutation({
+      query: contact => ({
+        url: '/',
+        method: 'POST',
+        body: contact,
+      }),
+      invalidatesTags: ['contacts'],
+    }),
+    deleteContact: builder.mutation({
+      query: id => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: result =>
+        result ? [{ type: 'contacts', id: result.id }] : ['contacts'],
+    }),
+    editContact: builder.mutation({
+      query: contact => ({
+        url: `/${contact.id}`,
+        method: 'PUT',
+        body: contact,
+      }),
+      invalidatesTags: result =>
+        result
+          ? [...result.map(el => ({ type: 'contacts', id: el.id }))]
+          : ['contacts'],
+    }),
+  }),
+});
 
-export const contactsReducer = createReducer(
-  { contacts },
-  {
-    [actions.addContact]: (state, { payload }) => {
-      const currentState = current(state);
-      return {
-        contacts: {
-          ...currentState.contacts,
-          items: [...currentState.contacts.items, payload],
-        },
-      };
-    },
-    [actions.deleteContact]: (state, { payload }) => {
-      const currentState = current(state);
-      return {
-        contacts: {
-          ...currentState.contacts,
-          items: [
-            ...currentState.contacts.items.filter(item => item.id !== payload),
-          ],
-        },
-      };
-    },
-    [actions.setFilter]: (state, { payload }) => {
-      const currentState = current(state);
-      return {
-        contacts: {
-          ...currentState.contacts,
-          filter: payload,
-        },
-      };
-    },
-  },
-);
+export const {
+  useGetContactsQuery,
+  useAddContactMutation,
+  useDeleteContactMutation,
+  useEditContactMutation,
+} = contactsReducer;

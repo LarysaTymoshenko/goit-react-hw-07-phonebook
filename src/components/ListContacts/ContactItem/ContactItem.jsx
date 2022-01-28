@@ -3,7 +3,7 @@ import s from "./ContactItem.module.css";
 
 function ContactItem({ name, number,onDeleteContact }) {
   return (
-    <li>
+    <li className={s.item}>
       <span className={s.itemText}>{name}</span>
       <span className={s.itemText}>{number}</span>
       <button
