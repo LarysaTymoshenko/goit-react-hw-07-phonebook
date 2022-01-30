@@ -1,29 +1,35 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import {
-  getContacts
-} from '../../redux/contact/contact-selector';
-import  actions from '../../redux/contact/contact-actions';
+   useGetContactsQuery,
+  useAddContactMutation
+} from '../../redux/contact/contact-reducer';
+import { onError, onWarning } from '../../utilits/toast';
 import s from "./Form.module.css";
 
 export default function Form() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const { contacts } = useGetContactsQuery();
+  const [addContact, { error }] = useAddContactMutation()
 
   const handleSubmit = (e) => {
     e.preventDefault();
    const contact = { name, number }
-    if (contacts.filter((el) => el.name === name).length !== 0) {
-      alert(`Contacts ${name} already exist`)
+    if (contacts.filter((el) => el.name.toLowerCase() === name.toLowerCase())
+        .length !== 0) {
+      onWarning(`Contacts ${name} already exist`)
     } else {
-      dispatch(actions.addContact(contact))
+      addContact(contact)
     }
     setName("");
     setNumber("");
   };
+  useEffect(() => {
+    if (error) onError(`${error.status} ${error.data.msg}`)
+  }, [error]);
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
@@ -59,7 +65,7 @@ export default function Form() {
         />
       </label>
       <button type="submit" className={s.button}>
-        Add contact
+   <ContactPhoneIcon fontSize="small"/>  Add contact 
       </button>
     </form>
   );

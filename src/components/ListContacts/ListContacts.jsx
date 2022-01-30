@@ -1,28 +1,36 @@
-import React from "react";
-import { useSelector,useDispatch } from "react-redux";
+import{useEffect} from "react";
+import { useSelector} from "react-redux";
 import PropTypes from "prop-types";
-import  actions from '../../redux/contact/contact-actions';
 import {
-  filterContacts
-} from '../../redux/contact/contact-selector';
+  useGetContactsQuery,
+} from '../../redux/contact/contact-reducer';
+import { getFilter } from '../../redux/filter/filter-selectors';
+import { onError } from '../../utilits/toast';
+import Loader from '../Loader/Loader'
 import ContactItem from "./ContactItem/ContactItem";
 import s from "./ListContact.module.css";
 
 
 const ListContacts = () => {
-  const contacts = useSelector(filterContacts);
-  const dispatch = useDispatch();
-  const onDeleteContact = id => dispatch(actions.deleteContact(id));
- 
+  const { data, error, isFetching } = useGetContactsQuery()
+
+  useEffect(() => {
+    if (error) onError(`${error.status} ${error.data}`)
+  }, [error])
+
+  const filter = useSelector(getFilter)
   return (
-      <ul>
-      {contacts.map(({ id, name, number }) => (
+    <ul>
+       {isFetching && <Loader />}
+     {data &&
+        data
+          .filter((el) => el?.name.toUpperCase().includes(filter.toUpperCase()))
+          .map((el) => (
             <ContactItem
-            key={id}
+            key={el.id}
             className={s.item}
-          name={name}
-           number={number}
-           onDeleteContact={() => onDeleteContact(id)}
+          name={el.name}
+           number={el.phone}
             />
         ))}
       </ul>

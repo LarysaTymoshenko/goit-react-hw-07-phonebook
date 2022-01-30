@@ -1,4 +1,10 @@
- import PropTypes from "prop-types";
+import { useEffect, useState } from 'react'
+import PropTypes from "prop-types";
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import EditOffRoundedIcon from '@mui/icons-material/EditOffRounded';
+import SaveAltRoundedIcon from '@mui/icons-material/SaveAltRounded';
+import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+import Loader from '../Loader/Loader';
 import s from "./ContactItem.module.css";
 
 function ContactItem({ name, number,onDeleteContact }) {
