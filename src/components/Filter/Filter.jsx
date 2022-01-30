@@ -1,14 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from "prop-types";
 import { getFilter } from '../../redux/filter/filter-selectors';
-
-import actions from '../../redux/contact/contact-actions';
+import { setFilter } from '../../redux/filter/filter-actions';
 import s from "./Filter.module.css";
 
 function Filter() {
-  const filter = useSelector(getFilter);
-  const dispatch = useDispatch();
-   const onFilter = (value) => dispatch(actions.setFilter(value))
+ const filter = useSelector(getFilter)
+  const dispatch = useDispatch()
+  const onFilter = (value) => dispatch(setFilter(value))
   return (
     <label htmlFor="name" className={s.label}>
       Find contact by name
@@ -28,8 +26,5 @@ function Filter() {
   );
 }
 
-Filter.propTypes = {
-  value: PropTypes.string,
-};
 
 export default Filter;

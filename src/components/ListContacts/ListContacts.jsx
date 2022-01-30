@@ -1,12 +1,10 @@
 import{useEffect} from "react";
 import { useSelector} from "react-redux";
 import PropTypes from "prop-types";
-import {
-  useGetContactsQuery,
-} from '../../redux/contact/contact-reducer';
+import { useGetContactsQuery} from '../../redux/contact/contact-reducer';
 import { getFilter } from '../../redux/filter/filter-selectors';
 import { onError } from '../../utilits/toast';
-import Loader from '../Loader/Loader'
+import Loader from '../Loader/Loader';
 import ContactItem from "./ContactItem/ContactItem";
 import s from "./ListContact.module.css";
 

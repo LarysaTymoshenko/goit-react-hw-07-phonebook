@@ -1,23 +1,19 @@
 import { useState,useEffect } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import {
-   useGetContactsQuery,
-  useAddContactMutation
-} from '../../redux/contact/contact-reducer';
+import {useGetContactsQuery,  useAddContactMutation} from '../../redux/contact/contact-reducer';
 import { onError, onWarning } from '../../utilits/toast';
 import s from "./Form.module.css";
 
 export default function Form() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const { contacts } = useGetContactsQuery();
+  const {  data: contacts } = useGetContactsQuery();
   const [addContact, { error }] = useAddContactMutation()
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   const contact = { name, number }
+   const contact = { name, phone: number }
     if (contacts.filter((el) => el.name.toLowerCase() === name.toLowerCase())
         .length !== 0) {
       onWarning(`Contacts ${name} already exist`)
@@ -33,7 +29,7 @@ export default function Form() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <label className={s.label}>
+      <label htmlFor="name" className={s.label}>
         Name
         <input
           className={s.input}
@@ -49,7 +45,7 @@ export default function Form() {
         />
         {""}
       </label>
-      <label className={s.label}>
+      <label htmlFor="number" className={s.label}>
         Number
         <input
           type="tel"
@@ -60,7 +56,7 @@ export default function Form() {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={(e) => {
-            setNumber(e.target.value);
+         setNumber(e.target.value);
           }}
         />
       </label>

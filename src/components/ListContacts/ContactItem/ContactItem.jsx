@@ -4,27 +4,21 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditOffRoundedIcon from '@mui/icons-material/EditOffRounded';
 import SaveAltRoundedIcon from '@mui/icons-material/SaveAltRounded';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
-import {useGetContactsQuery,
-  useAddContactMutation,
-  useDeleteContactMutation,
-  useEditContactMutation} from '../../../redux/contact/contact-reducer';
-  import { onError } from '../../../utilits/toast';
+import { useDeleteContactMutation, useEditContactMutation} from '../../../redux/contact/contact-reducer';
+import { onError } from '../../../utilits/toast';
 import Loader from '../../Loader/Loader';
 import s from "./ContactItem.module.css";
 
 function ContactItem({ id, nameContact, numberContact }) {
-  const [isEdit, setIsEdit] = useState(false)
-  const [name, setName] = useState(nameContact)
-  const [number, setNumber] = useState(numberContact)
-   const [
-    deleteContact,
-    { isLoading, error: errorDelete },
-  ] = useDeleteContactMutation()
-  const [changeContact, { error: errorEdit }] = useEditContactMutation()
+  const [isEdit, setIsEdit] = useState(false);
+  const [name, setName] = useState(nameContact);
+  const [number, setNumber] = useState(numberContact);
+  const [deleteContact, { isLoading, error: errorDelete }] = useDeleteContactMutation();
+  const [changeContact, { error: errorEdit }] = useEditContactMutation();
 
   useEffect(() => {
     if (errorDelete) onError(`${errorDelete.status} ${errorDelete.data.msg}`)
-  }, [errorDelete])
+  }, [errorDelete]);
 
   useEffect(() => {
     if (errorEdit) {
@@ -32,17 +26,17 @@ function ContactItem({ id, nameContact, numberContact }) {
       setName(nameContact)
       setNumber(numberContact)
     }
-  }, [errorEdit])
+  }, [errorEdit]);
 
-  const onChange = (isCgange) => {
-    if (!isCgange) {
+  const onChange = (isChange) => {
+    if (!isChange) {
       setName(nameContact)
       setNumber(numberContact)
     } else {
       changeContact({ id, name, phone: number })
     }
     setIsEdit(false)
-  }
+  };
   return (
    <li className={s.item}>
    {isEdit ? (
@@ -121,7 +115,7 @@ function ContactItem({ id, nameContact, numberContact }) {
         className={s.button}
         data-id={id}
         onClick={() => {
-          deleteContact(id)
+        deleteContact(id)
         }}
         disabled={isLoading}
       >
@@ -133,7 +127,6 @@ function ContactItem({ id, nameContact, numberContact }) {
 }
 
 ContactItem.propTypes = {
-  id: PropTypes.string.isRequired,
   nameContact: PropTypes.string.isRequired,
   numberContact: PropTypes.string.isRequired,
 }
