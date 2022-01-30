@@ -29,8 +29,8 @@ const ListContacts = () => {
             <ContactItem
             key={el.id}
             className={s.item}
-          name={el.name}
-           number={el.phone}
+          nameContact={el.name}
+           numberContact={el.phone}
             />
         ))}
       </ul>

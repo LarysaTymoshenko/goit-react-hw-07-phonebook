@@ -21,3 +21,7 @@
   list-style: decimal;
   width: 440px;
 }
+.input {
+  margin-right: 10px;
+  border: 3px double rgb(141, 133, 63);
+}
