@@ -15,11 +15,11 @@ function ContactItem({ id, nameContact, numberContact }) {
   const [number, setNumber] = useState(numberContact);
   const [deleteContact, { isLoading, error: errorDelete }] = useDeleteContactMutation();
   const [changeContact, { error: errorEdit }] = useEditContactMutation();
-
+  // console.log({ error: errorDelete});
   useEffect(() => {
     if (errorDelete) onError(`${errorDelete.status} ${errorDelete.data.msg}`)
   }, [errorDelete]);
-
+  
   useEffect(() => {
     if (errorEdit) {
       onError(`${errorEdit.status} ${errorEdit.data.msg}`)

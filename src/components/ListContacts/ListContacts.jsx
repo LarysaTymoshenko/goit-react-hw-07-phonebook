@@ -15,7 +15,6 @@ const ListContacts = () => {
   useEffect(() => {
     if (error) onError(`${error.status} ${error.data}`)
   }, [error])
-
   const filter = useSelector(getFilter)
   return (
     <ul>
