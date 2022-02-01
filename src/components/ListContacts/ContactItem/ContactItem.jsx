@@ -74,7 +74,7 @@ function ContactItem({ id, nameContact, numberContact }) {
       {!isEdit && (
         <button
           type="button"
-          className={s.button}
+          className={s.buttonEdit}
           data-id={id}
           onClick={() => {
             setIsEdit(true)
@@ -87,7 +87,7 @@ function ContactItem({ id, nameContact, numberContact }) {
       {isEdit && (
         <button
           type="button"
-          className={s.button}
+          className={s.buttonEdit}
           data-id={id}
           onClick={() => {
           onChange(true)
