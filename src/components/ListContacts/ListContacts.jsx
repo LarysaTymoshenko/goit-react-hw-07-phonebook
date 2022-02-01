@@ -14,7 +14,7 @@ const ListContacts = () => {
 
   useEffect(() => {
     if (error) onError(`${error.status} ${error.data}`)
-  }, [error])
+  }, [error]);
   const filter = useSelector(getFilter)
   return (
     <ul>
@@ -24,7 +24,7 @@ const ListContacts = () => {
           .filter((el) => el?.name.toUpperCase().includes(filter.toUpperCase()))
           .map((el) => (
             <ContactItem
-            key={el.id}
+            id={el.id}
             className={s.item}
           nameContact={el.name}
            numberContact={el.phone}

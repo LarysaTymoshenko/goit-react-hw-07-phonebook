@@ -127,6 +127,7 @@ function ContactItem({ id, nameContact, numberContact }) {
 }
 
 ContactItem.propTypes = {
+  id:PropTypes.string,
   nameContact: PropTypes.string.isRequired,
   numberContact: PropTypes.string.isRequired,
 }
