@@ -10,13 +10,13 @@ export default function Form() {
   const [number, setNumber] = useState("");
   const {  data: contacts } = useGetContactsQuery();
   const [addContact, { error }] = useAddContactMutation();
-  const isAlreadycontacts =()=> contacts.find((el) => el.name.toLowerCase() === name.toLowerCase())
+  const isAlreadyContacts =()=> contacts.find((el) => el.name.toLowerCase() === name.toLowerCase())
     .length !== 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
    const contact = { name, phone: number }
-    if (isAlreadycontacts) {
+    if (isAlreadyContacts) {
       onWarning(`Contacts ${name} already exist`)
     } else {
       addContact(contact)
