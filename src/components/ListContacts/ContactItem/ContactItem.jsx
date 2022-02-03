@@ -38,7 +38,7 @@ function ContactItem({ id, nameContact, numberContact }) {
     setIsEdit(false)
   };
   return (
-   <li className={s.item}>
+   <li className={s.item} >
    {isEdit ? (
         <input
           type="text"
@@ -48,9 +48,7 @@ function ContactItem({ id, nameContact, numberContact }) {
           value={name}
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          onChange={(e) => {
-            setName(e.target.value)
-          }}
+          onChange={(e) => setName(e.target.value)}
         />
       ) : (
         <span className={s.itemText}>{name}</span>
@@ -64,9 +62,7 @@ function ContactItem({ id, nameContact, numberContact }) {
           value={number}
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={(e) => {
-            setNumber(e.target.value)
-          }}
+          onChange={(e) => setNumber(e.target.value) }
         />
       ) : (
         <span className={s.itemText}>{number}</span>

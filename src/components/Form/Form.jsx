@@ -33,7 +33,7 @@ export default function Form() {
       <label className={s.label}>
         Name
         <input
-          id={"name"}
+          id={"id"}
           className={s.input}
           type="text"
           value={name}
