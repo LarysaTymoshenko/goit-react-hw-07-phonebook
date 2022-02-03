@@ -11,11 +11,12 @@ import s from "./ListContact.module.css";
 
 const ListContacts = () => {
   const { data, error, isFetching } = useGetContactsQuery()
-
+  const filter = useSelector(getFilter);
+  
   useEffect(() => {
     if (error) onError(`${error.status} ${error.data}`)
   }, [error]);
-  const filter = useSelector(getFilter)
+ 
   return (
     <ul>
        {isFetching && <Loader />}
@@ -24,10 +25,11 @@ const ListContacts = () => {
           .filter((el) => el?.name.toUpperCase().includes(filter.toUpperCase()))
           .map((el) => (
             <ContactItem
-            id={el.id}
-            className={s.item}
+          id={el.id}
+          key={el.id}
+          className={s.item}
           nameContact={el.name}
-           numberContact={el.phone}
+          numberContact={el.phone}
             />
         ))}
       </ul>

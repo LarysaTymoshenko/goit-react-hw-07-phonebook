@@ -4,13 +4,15 @@ import { setFilter } from '../../redux/filter/filter-actions';
 import s from "./Filter.module.css";
 
 function Filter() {
- const filter = useSelector(getFilter)
-  const dispatch = useDispatch()
-  const onFilter = (value) => dispatch(setFilter(value))
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
+  const onFilter = (value) => dispatch(setFilter(value));
+
   return (
-    <label htmlFor="name" className={s.label}>
+    <label className={s.label}>
       Find contact by name
       <input
+        id={'name'}
         type="text"
         name="filter"
         className={s.input}
@@ -18,9 +20,7 @@ function Filter() {
         value={filter}
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
-         onInput={(e) => {
-        onFilter(e.target.value)
-        }}
+         onInput={e => onFilter(e.target.value)}
       />
     </label>
   );

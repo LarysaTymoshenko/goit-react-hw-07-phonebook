@@ -9,13 +9,14 @@ export default function Form() {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
   const {  data: contacts } = useGetContactsQuery();
-  const [addContact, { error }] = useAddContactMutation()
+  const [addContact, { error }] = useAddContactMutation();
+  const isAlreadycontacts =()=> contacts.find((el) => el.name.toLowerCase() === name.toLowerCase())
+    .length !== 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
    const contact = { name, phone: number }
-    if (contacts.filter((el) => el.name.toLowerCase() === name.toLowerCase())
-        .length !== 0) {
+    if (isAlreadycontacts) {
       onWarning(`Contacts ${name} already exist`)
     } else {
       addContact(contact)
@@ -29,35 +30,31 @@ export default function Form() {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <label htmlFor="name" className={s.label}>
+      <label className={s.label}>
         Name
         <input
+          id={"name"}
           className={s.input}
           type="text"
-          name="name"
           value={name}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
+          onChange={(e) => setName(e.target.value)}
         />
         {""}
       </label>
-      <label htmlFor="number" className={s.label}>
+      <label  className={s.label}>
         Number
         <input
+          id={"number"}
           type="tel"
-          name="number"
           className={s.input}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           value={number}
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          onChange={(e) => {
-         setNumber(e.target.value);
-          }}
+          onChange={e => setNumber(e.target.value)}
         />
       </label>
       <button type="submit" className={s.button}>

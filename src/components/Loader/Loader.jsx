@@ -4,7 +4,7 @@ import DotLoader from "react-spinners/DotLoader";
 
 const override = css`
   display: block;
-  margin: 0px 2px;
+  margin: 0 2px;
 `
 
 const loading = true

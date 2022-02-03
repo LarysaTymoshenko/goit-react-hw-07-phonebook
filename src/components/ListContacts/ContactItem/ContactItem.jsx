@@ -15,7 +15,7 @@ function ContactItem({ id, nameContact, numberContact }) {
   const [number, setNumber] = useState(numberContact);
   const [deleteContact, { isLoading, error: errorDelete }] = useDeleteContactMutation();
   const [changeContact, { error: errorEdit }] = useEditContactMutation();
-  // console.log({ error: errorDelete});
+ 
   useEffect(() => {
     if (errorDelete) onError(`${errorDelete.status} ${errorDelete.data.msg}`)
   }, [errorDelete]);
@@ -76,9 +76,7 @@ function ContactItem({ id, nameContact, numberContact }) {
           type="button"
           className={s.buttonEdit}
           data-id={id}
-          onClick={() => {
-            setIsEdit(true)
-          }}
+          onClick={() =>setIsEdit(true)}
           disabled={isLoading}
         >
           <EditOffRoundedIcon fontSize="small" />
@@ -89,9 +87,7 @@ function ContactItem({ id, nameContact, numberContact }) {
           type="button"
           className={s.buttonEdit}
           data-id={id}
-          onClick={() => {
-          onChange(true)
-          }}
+          onClick={() => onChange(true)}
           disabled={isLoading}
         >
           <SaveAltRoundedIcon fontSize="small" />
