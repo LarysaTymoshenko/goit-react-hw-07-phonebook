@@ -16,7 +16,7 @@ export default function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
    const contact = { name, phone: number }
-    if ( contacts.find((el) => el.name.toLowerCase() === name.toLowerCase())
+    if ( contacts.filter((el) => el.name.toLowerCase() === name.toLowerCase())
     .length !== 0) {
       onWarning(`Contacts ${name} already exist`)
     } else {
