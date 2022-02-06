@@ -12,7 +12,6 @@ function Filter() {
     <label className={s.label}>
       Find contact by name
       <input
-        id={'name'}
         type="text"
         name="filter"
         className={s.input}
